@@ -1,15 +1,21 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
 const URL = "http://localhost:8080/problems/"
 const getProblem = async (id: number) => {
   const response = await fetch(URL + id);
   return await response.json();
 }
 
-export default async function ProblemDetail({ params }: { params: { id: number }}) {
-  const problem = await getProblem(params.id);
+export default async function ProblemDetail({ params }: { params: { id: string }}) {
+  const id = parseInt(params.id);
+  if (isNaN(id)) notFound();
+  const problem = await getProblem(id);
   const examples = problem.examples;
   return (
     <div>
       <section>
+        <Link href={`/problems/${id}/solve`}>제출하기</Link>
         <h1>{problem.title}</h1>
         <p>{problem.probDesc}</p>
       </section>

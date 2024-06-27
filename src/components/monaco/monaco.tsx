@@ -31,6 +31,6 @@ export default function MonacoEditor({ setValue }: { setValue: (value: any) => v
 
   return <div style={{
     width: "80%",
-    height: "50vh",
+    height: "80%",
   }} ref={divElement} />
 }

@@ -35,7 +35,11 @@ export default function Solve({ params }: { params: { id: string } }) {
       <h1>Solve</h1>
       <section>
         {loading ? null : <h2>{title}</h2>}
-        <MonacoEditor setValue={setValue} />
+        <div style={{
+          height: "50vh",
+        }}>
+          <MonacoEditor setValue={setValue} />
+        </div>
         <button
           className="btn bg-primary-subtle"
           onClick={onClick}

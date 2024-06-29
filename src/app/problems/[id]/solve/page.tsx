@@ -1,5 +1,6 @@
 "use client";
 
+import CodeMirrorEditor from "@/components/codemirror/codemirror";
 import MonacoEditor from "@/components/monaco/monaco";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -35,10 +36,13 @@ export default function Solve({ params }: { params: { id: string } }) {
       <h1>Solve</h1>
       <section>
         {loading ? null : <h2>{title}</h2>}
-        <div style={{
+        {/* <div style={{
           height: "50vh",
         }}>
           <MonacoEditor setValue={setValue} />
+        </div> */}
+        <div>
+          <CodeMirrorEditor />
         </div>
         <button
           className="btn bg-primary-subtle"

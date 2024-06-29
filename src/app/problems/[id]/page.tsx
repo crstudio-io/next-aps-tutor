@@ -38,11 +38,11 @@ export default async function ProblemDetail({ params }: { params: { id: string }
         {examples.map((elem: { id: string, inputExample: string, outputExample: string }) => <div key={elem.id}>
           <div>
             <h3>입력</h3>
-            <p>{elem.inputExample}</p>
+            <pre>{elem.inputExample}</pre>
           </div>
           <div>
             <h3>출력</h3>
-            <p>{elem.outputExample}</p>
+            <pre>{elem.outputExample}</pre>
           </div>
         </div>)}
       </section>

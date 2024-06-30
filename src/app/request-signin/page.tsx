@@ -9,6 +9,7 @@ export default function ProcessSignin({ searchParams: { token } }: { searchParam
       .then(response => response.text())
       .then(text => {
         localStorage.setItem("jwt", text);
+        location.href = "/";
       })
   }, [])
 

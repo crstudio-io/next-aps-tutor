@@ -59,7 +59,6 @@ export default function Solve({ params }: { params: { id: string } }) {
           Submit
         </button>
       </section>}
-
     </main>
   );
 }

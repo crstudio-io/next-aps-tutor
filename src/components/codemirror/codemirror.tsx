@@ -24,20 +24,7 @@ export default function CodeMirrorEditor({ onChanged, lang, value }: { onChanged
     if (!node) return;
     setElement(node);
   }, []);
-  // const startState = EditorState.create({
-  //   // doc: "public class Main {\n    public static void main(String[] args){}\n}",
-  //   extensions: [
-  //     basicSetup,
-  //     language.of(setLang(lang)),
-  //     keymap.of(defaultKeymap),
-  //     keymap.of([indentWithTab]),
-  //     EditorView.updateListener.of((view) => {
-  //       if (view.docChanged) {
-  //         onChanged(view.state.doc.text.join("\n"));
-  //       }
-  //     }),
-  //   ],
-  // });
+  
   const updateListener = (view: ViewUpdate) => {
     if (view.docChanged) {
       console.log(view.state.doc);

@@ -1,7 +1,6 @@
 "use client";
 
 import CodeMirrorEditor from "@/components/codemirror/codemirror";
-import MonacoEditor from "@/components/monaco/monaco";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -42,7 +41,7 @@ export default function Solve({ params }: { params: { id: string } }) {
           <MonacoEditor setValue={setValue} />
         </div> */}
         <div>
-          <CodeMirrorEditor />
+          <CodeMirrorEditor onChanged={setValue} />
         </div>
         <button
           className="btn bg-primary-subtle"

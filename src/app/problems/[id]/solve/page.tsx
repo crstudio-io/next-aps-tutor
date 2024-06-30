@@ -22,7 +22,7 @@ export default function Solve({ params }: { params: { id: string } }) {
   }, [])
 
   const [code, setCode] = useState("");
-  const setValue = (value: any) => {
+  const onChanged = (value: any) => {
     setCode(value);
   }
   const onClick = (event: any) => {
@@ -30,18 +30,27 @@ export default function Solve({ params }: { params: { id: string } }) {
     console.log(code);
   }
 
+  const [lang, setLang] = useState("java");
+  const onChangeLang = (event: { target: { value: any; }; }) => {
+    setLang(event.target.value);
+  }
+
   return (
     <main>
       <h1>Solve</h1>
-      <section>
-        {loading ? null : <h2>{title}</h2>}
-        {/* <div style={{
-          height: "50vh",
-        }}>
-          <MonacoEditor setValue={setValue} />
-        </div> */}
+      {loading ? <h1>Loading...</h1> : null}
+      {loading ? null : <select defaultValue="java" onChange={onChangeLang}>
+        <option value="java" >Java</option>
+        <option value="python">Python</option>
+      </select>}
+      {loading ? null : <section>
+        <h2>{title}</h2>
         <div>
-          <CodeMirrorEditor onChanged={setValue} />
+          <CodeMirrorEditor
+            onChanged={onChanged}
+            lang={lang}
+            value={code}
+          />
         </div>
         <button
           className="btn bg-primary-subtle"
@@ -49,7 +58,8 @@ export default function Solve({ params }: { params: { id: string } }) {
         >
           Submit
         </button>
-      </section>
+      </section>}
+
     </main>
   );
 }

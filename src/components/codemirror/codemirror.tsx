@@ -40,6 +40,7 @@ export default function CodeMirrorEditor({ onChanged, lang, value }: { onChanged
   // });
   const updateListener = (view: ViewUpdate) => {
     if (view.docChanged) {
+      console.log(view.state.doc);
       onChanged(view.state.doc.text.join("\n"));
     }
   }

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const URL = "http://localhost:8080/problems/"
 
-export default function Solve({ params }: { params: { id: string } }) {
+export default function Solve({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const [loading, setLoading] = useState(true);
@@ -40,18 +40,16 @@ export default function Solve({ params }: { params: { id: string } }) {
       <h1>Solve</h1>
       {loading ? <h1>Loading...</h1> : null}
       {loading ? null : <select defaultValue="java" onChange={onChangeLang}>
-        <option value="java" >Java</option>
+        <option value="java">Java</option>
         <option value="python">Python</option>
       </select>}
       {loading ? null : <section>
         <h2>{title}</h2>
-        <div>
-          <CodeMirrorEditor
-            onChanged={onChanged}
-            lang={lang}
-            value={code}
-          />
-        </div>
+        <CodeMirrorEditor
+          onChanged={onChanged}
+          lang={lang}
+          value={code}
+        />
         <button
           className="btn bg-primary-subtle"
           onClick={onClick}

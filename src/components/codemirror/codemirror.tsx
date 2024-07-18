@@ -1,8 +1,9 @@
 "use client";
 
 import { basicSetup } from "codemirror";
-import { EditorState, Compartment, Text } from "@codemirror/state";
+import { EditorState, Compartment } from "@codemirror/state";
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view";
+import { indentUnit } from "@codemirror/language";
 import { java } from "@codemirror/lang-java";
 import { python } from "@codemirror/lang-python";
 import { defaultKeymap, indentWithTab } from "@codemirror/commands";
@@ -17,14 +18,18 @@ const setLang = (lang: string) => {
   }
 }
 
-export default function CodeMirrorEditor({ onChanged, lang, value }: { onChanged: (value: any) => void, lang: string, value: string }) {
+export default function CodeMirrorEditor({onChanged, lang, value}: {
+  onChanged: (value: any) => void,
+  lang: string,
+  value: string
+}) {
   const language = new Compartment;
   const [element, setElement] = useState<HTMLElement>();
   const ref = useCallback((node: HTMLElement | null) => {
     if (!node) return;
     setElement(node);
   }, []);
-  
+
   const updateListener = (view: ViewUpdate) => {
     if (view.docChanged) {
       console.log(view.state.doc);
@@ -40,6 +45,7 @@ export default function CodeMirrorEditor({ onChanged, lang, value }: { onChanged
         language.of(setLang(lang)),
         keymap.of(defaultKeymap),
         keymap.of([indentWithTab]),
+        indentUnit.of("    "),
         EditorView.updateListener.of(updateListener),
       ],
     });
@@ -54,7 +60,5 @@ export default function CodeMirrorEditor({ onChanged, lang, value }: { onChanged
     }
   }, [element, lang]);
 
-  return <div>
-    <div ref={ref}></div>
-  </div>;
+  return <div ref={ref}></div>;
 }

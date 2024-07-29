@@ -13,10 +13,12 @@ export default function Navigation() {
       <Container>
         <Navbar.Brand href="/">CRStudio APS</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav"/>
-        <Navbar.Collapse id="navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse id="navbar-nav" className="justify-content-between">
+          <Nav>
             <Nav.Link href="/" active={path === "/"}>Home</Nav.Link>
             <Nav.Link href="/problems" active={path.startsWith("/problems")}>Problems</Nav.Link>
+          </Nav>
+          <Nav>
             <NavDropdown title="User Menu" id="nav-dropdown">
               <NavDropdown.Item href="/signin">Sign In</NavDropdown.Item>
               <NavDropdown.Divider/>

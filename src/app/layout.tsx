@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/global.scss";
+import Navigation from "@/components/navigation";
+import Container from "react-bootstrap/Container";
 
 export const metadata: Metadata = {
   title: {
@@ -10,13 +12,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+    <body>
+    <Navigation/>
+    <Container>
+      <div style={{padding: "1rem"}}>{children}</div>
+    </Container>
+    </body>
     </html>
   );
 }

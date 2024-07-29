@@ -37,7 +37,7 @@ export default function CodeMirrorEditor({onChanged, lang, value}: {
     }
   }
   useEffect(() => {
-    let state = EditorState.create({
+    const state = EditorState.create({
       doc: value,
       // doc: "public class Main {\n    public static void main(String[] args){}\n}",
       extensions: [

@@ -36,30 +36,35 @@ export default function Solve({params}: { params: { id: string } }) {
   }
 
   return (
-    <main>
-      <h1>Solve</h1>
-      {loading ? <h1>Loading...</h1> : null}
-      {loading ? null : <select defaultValue="java" onChange={onChangeLang}>
-        <option value="java">Java</option>
-        <option value="python">Python</option>
-      </select>}
-      {loading ? null : <section>
-        <h2>{title}</h2>
-        <CodeMirrorEditor
-          onChanged={onChanged}
-          lang={lang}
-          value={code}
-        />
-        <button
-          style={{
-            marginTop: "12px"
-          }}
-          className="btn bg-primary-subtle"
-          onClick={onClick}
-        >
-          Submit
-        </button>
-      </section>}
+    <main className="row justify-content-center">
+      <div className="col-sm-11 col-md-10 col-lg-8">
+        {loading ? <h1>Loading...</h1> : <h1 className="mb-3">Solve: {title}</h1>}
+        {loading ? null : <section className="mb-3 row">
+          <div className="col-4">
+            <label htmlFor="lang-select" className="form-label">Language</label>
+            <select id="lang-select" defaultValue="java" onChange={onChangeLang} className="form-select">
+              <option value="java">Java</option>
+              <option value="python">Python</option>
+            </select>
+          </div>
+        </section>}
+        {loading ? null : <section>
+          <CodeMirrorEditor
+            onChanged={onChanged}
+            lang={lang}
+            value={code}
+          />
+          <button
+            style={{
+              marginTop: "12px"
+            }}
+            className="btn bg-primary-subtle"
+            onClick={onClick}
+          >
+            Submit
+          </button>
+        </section>}
+      </div>
     </main>
   );
 }

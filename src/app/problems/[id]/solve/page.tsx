@@ -3,6 +3,7 @@
 import CodeMirrorEditor from "@/components/codemirror/codemirror";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const URL = "http://localhost:8080/problems/"
 
@@ -38,7 +39,10 @@ export default function Solve({params}: { params: { id: string } }) {
   return (
     <main className="row justify-content-center">
       <div className="col-sm-11 col-md-10 col-lg-8">
-        {loading ? <h1>Loading...</h1> : <h1 className="mb-3">Solve: {title}</h1>}
+        {loading ? <h1>Loading...</h1> : <div className="mb-4 row align-items-baseline justify-content-between">
+          <h1 className="col-auto">Solve: {title}</h1>
+          <Link href={`/problems/${id}`} className="col-auto">돌아가기</Link>
+        </div>}
         {loading ? null : <section className="mb-3 row">
           <div className="col-4">
             <label htmlFor="lang-select" className="form-label">Language</label>

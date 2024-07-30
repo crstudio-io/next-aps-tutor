@@ -37,6 +37,17 @@ export default function CodeMirrorEditor({onChanged, lang, value}: {
     }
   }
   useEffect(() => {
+    const theme = EditorView.theme({
+      "&": {
+        height: "50vh",
+      },
+      ".cm-content, .cm-gutter": {
+        height: "50vh",
+      },
+      ".cm-scroller": {
+        overflow: "auto",
+      },
+    });
     const state = EditorState.create({
       doc: value,
       // doc: "public class Main {\n    public static void main(String[] args){}\n}",
@@ -47,6 +58,7 @@ export default function CodeMirrorEditor({onChanged, lang, value}: {
         keymap.of([indentWithTab]),
         indentUnit.of("    "),
         EditorView.updateListener.of(updateListener),
+        theme,
       ],
     });
 

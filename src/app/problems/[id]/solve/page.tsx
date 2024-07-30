@@ -51,6 +51,9 @@ export default function Solve({params}: { params: { id: string } }) {
           value={code}
         />
         <button
+          style={{
+            marginTop: "12px"
+          }}
           className="btn bg-primary-subtle"
           onClick={onClick}
         >

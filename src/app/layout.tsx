@@ -21,7 +21,7 @@ export default function RootLayout({
     <body>
     <Navigation/>
     <Container>
-      <div style={{padding: "1rem"}}>{children}</div>
+      <div className="p-3">{children}</div>
     </Container>
     </body>
     </html>

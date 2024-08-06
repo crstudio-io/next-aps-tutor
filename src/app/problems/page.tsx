@@ -18,16 +18,18 @@ export default async function Home() {
   const json = await getProblems();
   const problems = json.content;
   return (
-    <main>
-      <h1>Problem List</h1>
-      {problems.map((elem: {id: number, title: string}) => 
-      <Link key={elem.id} href={`/problems/${elem.id}`}>
-        <ProblemListItem 
-          key={elem.id} 
-          id={elem.id} 
-          title={elem.title} 
-        />
-      </Link>)}
+    <main className="row justify-content-center">
+      <div className="col-md-11 col-lg-9">
+        <h1>Problem List</h1>
+        {problems.map((elem: { id: number, title: string }) =>
+          <Link key={elem.id} href={`/problems/${elem.id}`}>
+            <ProblemListItem
+              key={elem.id}
+              id={elem.id}
+              title={elem.title}
+            />
+          </Link>)}
+      </div>
     </main>
   );
 }

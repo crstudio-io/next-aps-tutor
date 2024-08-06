@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
     <body>
     <Navigation/>
-    <Container>
+    <Container className="mt-3">
       <div className="p-3">{children}</div>
     </Container>
     </body>

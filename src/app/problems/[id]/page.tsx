@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import ClipboardButton from "@/components/problems/clipboard-btn";
 
 export const metadata: Metadata = {
   title: "Problem",
@@ -45,10 +46,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
                 <h3 className="fs-4">입력 예시 {index + 1}</h3>
                 <div className="position-relative">
                   <div className="w-100 d-flex justify-content-end position-absolute top-0 p-1">
-                    <OverlayTrigger placement="top" overlay={(<Tooltip id="tooltip">Copy to clipboard</Tooltip>)}>
-                      <button className="border-0 bg-transparent">
-                        <i className="bi bi-clipboard"></i></button>
-                    </OverlayTrigger>
+                    <ClipboardButton value={elem.inputExample}></ClipboardButton>
                   </div>
                   <pre className="bg-info-subtle rounded p-2 fs-6">{elem.inputExample}</pre>
                 </div>
@@ -57,11 +55,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
                 <h3 className="fs-4">출력 예시 {index + 1}</h3>
                 <div className="position-relative">
                   <div className="w-100 d-flex justify-content-end position-absolute top-0 p-1">
-                    <OverlayTrigger placement="top" overlay={(<Tooltip id="tooltip">Copy to clipboard</Tooltip>)}>
-                      <button className="border-0 bg-transparent"
-                              data-bs-title="Copy to clipboard">
-                        <i className="bi bi-clipboard"></i></button>
-                    </OverlayTrigger>
+                    <ClipboardButton value={elem.outputExample}></ClipboardButton>
                   </div>
                   <pre className="bg-info-subtle rounded p-2 fs-6">{elem.outputExample}</pre>
                 </div>

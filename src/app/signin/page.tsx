@@ -17,6 +17,7 @@ export default function SigninPage() {
   const onSubmit = async (event: any) => {
     event.preventDefault();
     if (fetching || success) return;
+    setFailed(false);
     setFetching(true);
     const response = await fetch(URL, {
       method: "post",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../styles/global.scss";
+import "@/styles/global.scss";
 import Navigation from "@/components/navigation";
 import Container from "react-bootstrap/Container";
 

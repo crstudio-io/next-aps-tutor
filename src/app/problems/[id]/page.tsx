@@ -24,7 +24,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
   return (
     <main className="row justify-content-center">
       <div className="col-sm-11 col-md-10 col-lg-8">
-        <section className="mb-4 row justify-content-between">
+        <section className="mb-4 row justify-content-between align-items-baseline">
           <h1 className="col-auto">Problem: {problem.title}</h1>
           <Link href={`/problems/${id}/solve`} className="col-auto">제출하기</Link>
         </section>

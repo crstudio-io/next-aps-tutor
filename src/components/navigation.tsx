@@ -5,9 +5,22 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { fetchUserInfo, selectSignedIn, selectUserEmail, signOut } from "@/lib/features/user/user-slice";
+import Link from "next/link";
 
 export default function Navigation() {
   const path = usePathname();
+  const dispatch = useAppDispatch();
+  const signedIn = useAppSelector(selectSignedIn);
+  const email = useAppSelector(selectUserEmail);
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  });
+  const onSignOut = () => {
+    dispatch(signOut());
+  }
   return (
     <Navbar expand="lg" className="bg-primary-subtle">
       <Container>
@@ -19,12 +32,11 @@ export default function Navigation() {
             <Nav.Link href="/problems" active={path.startsWith("/problems")}>Problems</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="User Menu" id="nav-dropdown">
-              <NavDropdown.Item href="/signin">Sign In</NavDropdown.Item>
-              <NavDropdown.Divider/>
+            {signedIn ? null : <Link href={"/signin"} className="btn btn-primary">Sign In</Link>}
+            {signedIn ? <NavDropdown title={email ?? "Dropdown"} id="nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/signout">Sign Out</NavDropdown.Item>
-            </NavDropdown>
+              <NavDropdown.Item onClick={onSignOut}>Sign Out</NavDropdown.Item>
+            </NavDropdown> : null}
           </Nav>
         </Navbar.Collapse>
       </Container>

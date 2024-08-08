@@ -1,0 +1,14 @@
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import { userSlice } from "@/lib/features/user/user-slice";
+
+export const makeStore = () => {
+  return configureStore({
+    reducer: combineSlices(userSlice),
+  });
+};
+
+// Infer the type of makeStore
+export type AppStore = ReturnType<typeof makeStore>
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']

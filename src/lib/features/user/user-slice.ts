@@ -33,15 +33,17 @@ export const userSlice = createAppSlice({
       return json.email;
     }, {
       pending: (state) => {
-        state.status = "loading";
+        state.status = "pending";
       },
       fulfilled: (state, action) => {
         state.email = action.payload;
         state.signedIn = true;
+        state.status = "idle";
       },
       rejected: (state) => {
         state.email = "";
         state.signedIn = false;
+        state.status = "idle";
         localStorage.removeItem("jwt");
       }
     }),

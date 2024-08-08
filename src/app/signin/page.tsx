@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useAppSelector } from "@/lib/hooks";
+import { selectSignedIn } from "@/lib/features/user/user-slice";
+import { useRouter } from "next/navigation";
 
 const URL = "http://localhost:8080/auth/signin"
 
 export default function SigninPage() {
+  const signedIn = useAppSelector(selectSignedIn);
+  if (signedIn) useRouter().push("/");
+
   const [email, setEmail] = useState("");
   const [fetching, setFetching] = useState(false);
   const [failed, setFailed] = useState(false);

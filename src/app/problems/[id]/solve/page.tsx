@@ -26,12 +26,24 @@ export default function Solve({params}: { params: { id: string } }) {
   const onChanged = (value: any) => {
     setCode(value);
   }
-  const onClick = (event: any) => {
+  const onClick = async (event: any) => {
     event.target.disabled = true;
-    console.log(code);
+    const body = JSON.stringify({
+      lang, code,
+    });
+    console.log(body);
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
+    headers.append("Content-Type", "application/json");
+    const response = await fetch(URL + `${id}/solutions`, {
+      method: "post",
+      headers,
+      body,
+    });
+    console.log(response);
   }
 
-  const [lang, setLang] = useState("java");
+  const [lang, setLang] = useState("JAVA17");
   const onChangeLang = (event: { target: { value: any; }; }) => {
     setLang(event.target.value);
   }
@@ -46,9 +58,9 @@ export default function Solve({params}: { params: { id: string } }) {
         {loading ? null : <section className="mb-3 row">
           <div className="col-4">
             <label htmlFor="lang-select" className="form-label">Language</label>
-            <select id="lang-select" defaultValue="java" onChange={onChangeLang} className="form-select">
-              <option value="java">Java</option>
-              <option value="python">Python</option>
+            <select id="lang-select" defaultValue="JAVA17" onChange={onChangeLang} className="form-select">
+              <option value="JAVA17">Java</option>
+              <option value="PYTHON3">Python 3</option>
             </select>
           </div>
         </section>}

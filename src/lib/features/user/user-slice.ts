@@ -3,7 +3,7 @@ import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 const initialState = {
   email: "",
   signedIn: false,
-  status: "idle",
+  fetching: false,
 };
 
 export const createAppSlice = buildCreateSlice({
@@ -22,7 +22,7 @@ export const userSlice = createAppSlice({
     }),
     fetchUserInfo: create.asyncThunk(async (_, {rejectWithValue}) => {
       const jwt = localStorage.getItem("jwt");
-      if (!jwt) rejectWithValue("");
+      if (!jwt) return rejectWithValue("");
       const headers = new Headers();
       headers.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
       const response = await fetch("http://localhost:8080/auth/user-info", {
@@ -33,26 +33,29 @@ export const userSlice = createAppSlice({
       return json.email;
     }, {
       pending: (state) => {
-        state.status = "pending";
+        state.fetching = true;
       },
       fulfilled: (state, action) => {
         state.email = action.payload;
         state.signedIn = true;
-        state.status = "idle";
+        state.fetching = false;
       },
       rejected: (state) => {
-        state.email = "";
-        state.signedIn = false;
-        state.status = "idle";
-        localStorage.removeItem("jwt");
+        if (state.signedIn) {
+          state.email = "";
+          state.signedIn = false;
+          state.fetching = false;
+          localStorage.removeItem("jwt");
+        }
       }
     }),
   }),
   selectors: {
     selectUserEmail: (userInfo) => userInfo.email,
     selectSignedIn: (userInfo) => userInfo.signedIn,
+    selectFetching: (userInfo) => userInfo.fetching,
   },
 });
 
 export const {fetchUserInfo, signOut} = userSlice.actions;
-export const {selectUserEmail, selectSignedIn} = userSlice.selectors;
+export const {selectUserEmail, selectSignedIn, selectFetching} = userSlice.selectors;

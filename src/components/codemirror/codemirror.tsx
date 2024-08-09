@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const setLang = (lang: string) => {
   switch (lang) {
-    case "python":
+    case "PYTHON3":
       return python();
     default:
       return java();

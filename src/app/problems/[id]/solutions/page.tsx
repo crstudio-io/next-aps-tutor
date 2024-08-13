@@ -12,10 +12,16 @@ export default function Solutions({params}: { params: { id: string } }) {
   if (isNaN(probId)) notFound();
   const searchParams = useSearchParams();
   const me = searchParams.has("me");
+  const page = searchParams.get("page");
 
   const [fetching, setFetching] = useState(true);
   const [problem, setProblem] = useState({id: null, title: null});
-  const [pageInfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState({
+    number: 0,
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
   const [content, setContent] = useState([]);
 
   const getProblem = async () => {
@@ -25,7 +31,7 @@ export default function Solutions({params}: { params: { id: string } }) {
     setProblem(json);
   }
   const getSolution = async () => {
-    const URL = `http://localhost:8080/problems/${probId}/solutions${me ? "/me" : ""}`;
+    const URL = `http://localhost:8080/problems/${probId}/solutions${(me ? "/me" : "") + (page ? `?page=${page}` : "")}`;
     const headers = new Headers();
     headers.set("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
     const response = await fetch(URL, {
@@ -33,7 +39,6 @@ export default function Solutions({params}: { params: { id: string } }) {
     });
     if (response.ok) {
       const json = await response.json();
-      console.log(json);
       setContent(json.content);
       setPageInfo(json.page);
     }
@@ -43,7 +48,7 @@ export default function Solutions({params}: { params: { id: string } }) {
     getProblem();
     getSolution();
     setFetching(false);
-  }, [me]);
+  }, [me, page]);
 
   return (
     <main className="row justify-content-center">
@@ -88,6 +93,27 @@ export default function Solutions({params}: { params: { id: string } }) {
           />)}
           </tbody>
         </Table>}
+        {fetching ? null : <nav className="w-100 d-flex justify-content-center">
+          <ul className="pagination">
+            <li className={`page-item ` + (pageInfo.number == 0 ? "disabled" : "")}>
+              <Link className="page-link" href={`?page=${pageInfo.number - 1}`} aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </Link>
+            </li>
+            {Array.from(
+              {length: pageInfo.totalPages},
+              (_, index) => index
+            ).map(i => <li key={i} className={`page-item ` + (pageInfo.number === i ? "active" : "")}>
+              <Link className="page-link" href={`?page=${i}`}>{i + 1}</Link>
+            </li>)}
+            <li className={`page-item ` + (pageInfo.number + 1 === pageInfo.totalPages ? "disabled" : "")}>
+              <Link className="page-link" href={`?page=${pageInfo.number + 1}`} aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>}
+
       </div>
     </main>
   )

@@ -10,9 +10,8 @@ const URL = "http://localhost:8080/problems"
 
 const getProblems = async () => {
   const response = await fetch(URL);
-  const json = await response.json();
-  return json;
-}
+  return await response.json();
+};
 
 export default async function Problems() {
   const json = await getProblems();

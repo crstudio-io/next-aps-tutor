@@ -14,7 +14,7 @@ const getProblems = async () => {
   return json;
 }
 
-export default async function Home() {
+export default async function Problems() {
   const json = await getProblems();
   const problems = json.content;
   return (

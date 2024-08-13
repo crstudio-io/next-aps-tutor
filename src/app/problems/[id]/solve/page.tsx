@@ -1,7 +1,7 @@
 "use client";
 
 import CodeMirrorEditor from "@/components/codemirror/codemirror";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -10,6 +10,7 @@ const URL = "http://localhost:8080/problems/"
 export default function Solve({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const getProblem = async () => {
@@ -20,7 +21,7 @@ export default function Solve({params}: { params: { id: string } }) {
   }
   useEffect(() => {
     getProblem();
-  }, [])
+  })
 
   const [code, setCode] = useState("");
   const onChanged = (value: any) => {
@@ -40,7 +41,9 @@ export default function Solve({params}: { params: { id: string } }) {
       headers,
       body,
     });
-    console.log(response);
+    if (response.ok)
+      router.push("solutions?me")
+    else alert(response.status);
   }
 
   const [lang, setLang] = useState("JAVA17");

@@ -9,7 +9,8 @@ const URL = "http://localhost:8080/auth/signin"
 
 export default function SigninPage() {
   const signedIn = useAppSelector(selectSignedIn);
-  if (signedIn) useRouter().push("/");
+  const router = useRouter();
+  if (signedIn) router.push("/");
 
   const [email, setEmail] = useState("");
   const [fetching, setFetching] = useState(false);

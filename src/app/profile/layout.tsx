@@ -4,9 +4,9 @@ export const metadata: Metadata = {
   title: "Profile",
 };
 
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+export default function ProfileLayout({
+                                        children,
+                                      }: Readonly<{
   children: React.ReactNode;
 }>) {
   return children;

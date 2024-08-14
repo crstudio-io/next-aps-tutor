@@ -4,9 +4,9 @@ export const metadata: Metadata = {
   title: "Solve",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default function SolveLayout({
+                                      children,
+                                    }: Readonly<{
   children: React.ReactNode;
 }>) {
   return children;

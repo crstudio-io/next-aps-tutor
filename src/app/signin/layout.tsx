@@ -4,9 +4,9 @@ export const metadata: Metadata = {
   title: "Sign In",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default function SignInLayout({
+                                       children,
+                                     }: Readonly<{
   children: React.ReactNode;
 }>) {
   return children;

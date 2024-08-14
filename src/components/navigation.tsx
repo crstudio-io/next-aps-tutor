@@ -15,21 +15,24 @@ export default function Navigation() {
     signedIn: false,
   });
   const [fetching, setFetching] = useState(true);
-  let jwt;
-
   const getUserInfo = async () => {
-    jwt = localStorage.getItem("jwt");
-    if (!jwt) return;
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) {
+      setFetching(false);
+      return;
+    }
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
     const response = await fetch("http://localhost:8080/auth/user-info", {
       headers
     });
-    if (!response.ok) return;
+    if (!response.ok) {
+      setFetching(false);
+      return;
+    }
     const json = await response.json();
     setUserInfo({username: json.email, signedIn: true});
     setFetching(false);
-    console.log("fetch complete")
   }
 
   useEffect(() => {
@@ -39,6 +42,10 @@ export default function Navigation() {
   const path = usePathname();
   const onSignOut = () => {
     localStorage.removeItem("jwt");
+    setUserInfo({
+      username: "",
+      signedIn: false,
+    });
     router.push("/");
   }
 

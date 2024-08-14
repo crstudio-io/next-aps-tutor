@@ -11,13 +11,13 @@ export default function Solve({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [fetching, setFetching] = useState(true);
   const [title, setTitle] = useState("");
   const getProblem = async () => {
     const response = await fetch(URL + id);
     const json = await response.json();
     setTitle(json.title);
-    setLoading(false);
+    setFetching(false);
   }
   useEffect(() => {
     getProblem();
@@ -54,11 +54,11 @@ export default function Solve({params}: { params: { id: string } }) {
   return (
     <main className="row justify-content-center">
       <div className="col-sm-11 col-md-10 col-lg-8">
-        {loading ? <h1>Loading...</h1> : <div className="mb-4 row align-items-baseline justify-content-between">
+        {fetching ? <h1>Loading...</h1> : <div className="mb-4 row align-items-baseline justify-content-between">
           <h1 className="col-auto">Solve: {title}</h1>
           <Link href={`/problems/${id}`} className="col-auto">돌아가기</Link>
         </div>}
-        {loading ? null : <section className="mb-3 row">
+        {fetching ? null : <section className="mb-3 row">
           <div className="col-4">
             <label htmlFor="lang-select" className="form-label">Language</label>
             <select id="lang-select" defaultValue="JAVA17" onChange={onChangeLang} className="form-select">
@@ -67,7 +67,7 @@ export default function Solve({params}: { params: { id: string } }) {
             </select>
           </div>
         </section>}
-        {loading ? null : <section>
+        {fetching ? null : <section>
           <CodeMirrorEditor
             onChanged={onChanged}
             lang={lang}

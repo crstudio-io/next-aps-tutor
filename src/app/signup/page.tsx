@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const URL = "http://localhost:8080/auth/signup"
+const URL = "http://localhost:8080/auth/signup/request"
 export default function SignupPage() {
   const router = useRouter();
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function SignupPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email}),
+      body: JSON.stringify({email, request}),
     });
     if (!response.ok) {
       setFailed(true);
@@ -62,11 +62,11 @@ export default function SignupPage() {
         </div>
         <div className="mb-3">
           <label htmlFor="request-input" className="form-label">Why do you want to sign up?</label>
-          <textarea id="request-input" className="form-control" value={request} onChange={onRequestChange}></textarea>
+          <input id="request-input" className="form-control" value={request} onChange={onRequestChange}/>
         </div>
         {failed ? <div className="alert alert-danger" role="alert">Failed</div> : null}
         {fetching ? <div className="alert alert-info" role="alert">Submitting...</div> : null}
-        {success ? <div className="alert alert-success" role="alert">Sign Up request submitted.</div> : null}
+        {success ? <div className="alert alert-success" role="alert">Check email</div> : null}
         <div className="mb-3">
           <button type="submit" className="btn bg-primary-subtle" disabled={success || fetching}>Submit</button>
         </div>

@@ -61,8 +61,10 @@ export default function Navigation() {
             <Nav.Link href="/problems" active={path.startsWith("/problems")}>Problems</Nav.Link>
           </Nav>
           {fetching ? null : <Nav>
-            {userInfo.signedIn ? null : <Link href={"/signin"} className="btn btn-primary">Sign In</Link>}
-            {userInfo.signedIn ? null : <Link href={"/signup"} className="btn btn-primary">Sign Up</Link>}
+            {userInfo.signedIn ? null : <div>
+              <Link href={"/signin"} className="btn btn-primary me-2">Sign In</Link>
+              <Link href={"/signup"} className="btn btn-primary">Sign Up</Link>
+            </div>}
             {!userInfo.signedIn ? null : <NavDropdown title={userInfo.username ?? "Dropdown"} id="nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item onClick={onSignOut}>Sign Out</NavDropdown.Item>

@@ -32,7 +32,6 @@ export default function Solve({params}: { params: { id: string } }) {
     const body = JSON.stringify({
       lang, code,
     });
-    console.log(body);
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
     headers.append("Content-Type", "application/json");

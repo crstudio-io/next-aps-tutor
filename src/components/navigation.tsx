@@ -27,6 +27,7 @@ export default function Navigation() {
       headers
     });
     if (!response.ok) {
+      localStorage.removeItem("jwt");
       setFetching(false);
       return;
     }
@@ -61,6 +62,7 @@ export default function Navigation() {
           </Nav>
           {fetching ? null : <Nav>
             {userInfo.signedIn ? null : <Link href={"/signin"} className="btn btn-primary">Sign In</Link>}
+            {userInfo.signedIn ? null : <Link href={"/signup"} className="btn btn-primary">Sign Up</Link>}
             {!userInfo.signedIn ? null : <NavDropdown title={userInfo.username ?? "Dropdown"} id="nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item onClick={onSignOut}>Sign Out</NavDropdown.Item>

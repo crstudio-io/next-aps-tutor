@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useAppSelector } from "@/lib/hooks";
-import { selectSignedIn } from "@/lib/features/user/user-slice";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const URL = "http://localhost:8080/auth/signin"
 
 export default function SigninPage() {
-  const signedIn = useAppSelector(selectSignedIn);
   const router = useRouter();
-  if (signedIn) router.push("/");
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) router.push("/");
+  }, []);
 
   const [email, setEmail] = useState("");
   const [fetching, setFetching] = useState(false);

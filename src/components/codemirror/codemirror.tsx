@@ -1,5 +1,3 @@
-"use client";
-
 import { basicSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view";
@@ -18,11 +16,14 @@ const setLang = (lang: string) => {
   }
 }
 
-export default function CodeMirrorEditor({onChanged, lang, value}: {
-  onChanged: (value: any) => void,
-  lang: string,
-  value: string
-}) {
+interface CodeMirrorEditorProps {
+  readOnly?: boolean,
+  onChanged?: (value: string) => void,
+  lang: string | null,
+  value: string | null,
+}
+
+export default function CodeMirrorEditor({readOnly = false, onChanged, lang, value}: CodeMirrorEditorProps) {
   const language = new Compartment;
   const [element, setElement] = useState<HTMLElement>();
   const ref = useCallback((node: HTMLElement | null) => {
@@ -32,8 +33,7 @@ export default function CodeMirrorEditor({onChanged, lang, value}: {
 
   const updateListener = (view: ViewUpdate) => {
     if (view.docChanged) {
-      console.log(view.state.doc);
-      onChanged(view.state.doc.text.join("\n"));
+      if (onChanged) onChanged(view.state.doc.text.join("\n"));
     }
   }
   useEffect(() => {
@@ -59,6 +59,8 @@ export default function CodeMirrorEditor({onChanged, lang, value}: {
         indentUnit.of("    "),
         EditorView.updateListener.of(updateListener),
         theme,
+        // EditorState.readOnly.of(readOnly),
+        EditorView.editable.of(!readOnly),
       ],
     });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Link from "next/link";
@@ -13,6 +13,7 @@ export default function Solutions({params}: { params: { id: string } }) {
   const searchParams = useSearchParams();
   const me = searchParams.has("me");
   const page = searchParams.get("page");
+  const router = useRouter();
 
   const [fetching, setFetching] = useState(true);
   const [problem, setProblem] = useState({id: null, title: null});
@@ -32,8 +33,10 @@ export default function Solutions({params}: { params: { id: string } }) {
   }
   const getSolution = async () => {
     const URL = `http://localhost:8080/problems/${probId}/solutions${(me ? "/me" : "") + (page ? `?page=${page}` : "")}`;
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) router.push("/signin");
     const headers = new Headers();
-    headers.set("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
+    headers.set("Authorization", `Bearer ${jwt}`);
     const response = await fetch(URL, {
       headers
     });
@@ -90,6 +93,7 @@ export default function Solutions({params}: { params: { id: string } }) {
             score={elem.score}
             status={elem.status}
             probId={probId}
+            isLink={true}
           />)}
           </tbody>
         </Table>}

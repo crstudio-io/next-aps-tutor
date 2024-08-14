@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import ClipboardButton from "@/components/problems/clipboard-btn";
 
 export const metadata: Metadata = {

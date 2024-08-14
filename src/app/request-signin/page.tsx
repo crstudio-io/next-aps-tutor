@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const URL = "http://localhost:8080/auth/signin"
 export default function ProcessSignin({searchParams: {token}}: { searchParams: { token: string } }) {
-  // const router = useRouter();
+  const router = useRouter();
   useEffect(() => {
     fetch(URL + "?token=" + token)
-      .then(response => response.text())
+      .then(response => {
+        if (!response.ok) router.push("/request-signin/error");
+        else return response.text();
+      })
       .then(text => {
-        localStorage.setItem("jwt", text);
-        location.href = "/";
+        if (text) {
+          localStorage.setItem("jwt", text);
+          location.href = "/";
+        }
       });
   });
 

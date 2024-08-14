@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const URL = "http://localhost:8080/auth/signin"
 
-export default function SigninPage() {
+export default function SignInPage() {
   const router = useRouter();
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");

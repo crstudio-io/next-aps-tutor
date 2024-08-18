@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Link from "next/link";
 import SolutionTr from "@/components/solutions/solution-tr";
-
+import Pagination from "@/components/pagination";
 
 export default function Solutions({params}: { params: { id: string } }) {
   const probId = parseInt(params.id);
@@ -97,27 +97,7 @@ export default function Solutions({params}: { params: { id: string } }) {
           />)}
           </tbody>
         </Table>}
-        {fetching ? null : <nav className="w-100 d-flex justify-content-center">
-          <ul className="pagination">
-            <li className={`page-item ` + (pageInfo.number == 0 ? "disabled" : "")}>
-              <Link className="page-link" href={`?page=${pageInfo.number - 1}`} aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </Link>
-            </li>
-            {Array.from(
-              {length: pageInfo.totalPages},
-              (_, index) => index
-            ).map(i => <li key={i} className={`page-item ` + (pageInfo.number === i ? "active" : "")}>
-              <Link className="page-link" href={`?page=${i}`}>{i + 1}</Link>
-            </li>)}
-            <li className={`page-item ` + (pageInfo.number + 1 === pageInfo.totalPages ? "disabled" : "")}>
-              <Link className="page-link" href={`?page=${pageInfo.number + 1}`} aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>}
-
+        {fetching ? null : <Pagination pageInfo={pageInfo} />}
       </div>
     </main>
   )

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Table } from "react-bootstrap";
 import ProblemTr from "@/components/problems/problem-tr";
+import Pagination from "@/components/pagination";
 
 export const metadata: Metadata = {
   title: "Problems",
@@ -16,6 +17,7 @@ const getProblems = async () => {
 export default async function Problems() {
   const json = await getProblems();
   const problems = json.content;
+  const pageInfo = json.page;
   return (
     <main className="row justify-content-center">
       <div className="col-md-11 col-lg-9">
@@ -36,6 +38,7 @@ export default async function Problems() {
             />)}
           </tbody>
         </Table>
+        <Pagination pageInfo={pageInfo} />
       </div>
     </main>
   );

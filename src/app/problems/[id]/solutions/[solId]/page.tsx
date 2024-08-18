@@ -48,6 +48,8 @@ export default function Solution({params}: { params: { id: string, solId: string
         {fetching ? <h1>Waiting</h1> : <section className="mb-4 row justify-content-between align-items-baseline">
           <h1 className="col-auto">Problem: {problem.title}</h1>
           <div className="col-auto">
+            <Link href={`/problems/${probId}/solutions`}>다른 풀이 보기</Link>
+            <span> </span>
             <Link href={`/problems/${probId}`}>문제 보기</Link>
           </div>
         </section>}

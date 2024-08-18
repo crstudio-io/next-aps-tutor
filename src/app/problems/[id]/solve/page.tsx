@@ -13,14 +13,30 @@ export default function Solve({params}: { params: { id: string } }) {
   const router = useRouter();
   const [fetching, setFetching] = useState(true);
   const [title, setTitle] = useState("");
+
+  const getUserInfo = async () => {
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) router.push("/signin");
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${localStorage.getItem("jwt")}`);
+    const response = await fetch("http://localhost:8080/auth/user-info", {
+      headers
+    });
+    if (!response.ok) {
+      localStorage.removeItem("jwt");
+      router.push("/signin");
+    }
+  }
+
   const getProblem = async () => {
     const response = await fetch(URL + id);
     const json = await response.json();
     setTitle(json.title);
-    setFetching(false);
   }
   useEffect(() => {
     getProblem();
+    getUserInfo();
+    setFetching(false);
   })
 
   const [code, setCode] = useState("");

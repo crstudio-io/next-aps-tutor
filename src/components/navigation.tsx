@@ -22,6 +22,12 @@ export default function Navigation() {
       .then(setSession);
     setFetching(false);
   }, []);
+
+  const onSignOutClick = async () => {
+    await fetch("/api/session", {method: "DELETE", redirect: "follow"});
+    // force redirect, nothing else works
+    location.href = "/";
+  }
   return (
     <Navbar expand="lg" className="bg-primary-subtle">
       <Container>
@@ -37,7 +43,7 @@ export default function Navigation() {
             {!fetching ? (session.signedIn ?
                 <NavDropdown title={session.username ?? "Dropdown"} id="nav-dropdown">
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item>Sign Out</NavDropdown.Item>
+                  <NavDropdown.Item onClick={onSignOutClick}>Sign Out</NavDropdown.Item>
                 </NavDropdown> : <div>
                   <Link href={"/signin"} className="btn btn-primary me-2">Sign In</Link>
                   <Link href={"/signup"} className="btn btn-primary">Sign Up</Link>

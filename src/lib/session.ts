@@ -27,3 +27,8 @@ export const updateSession = async (sessionData: SessionData) => {
   session.signedIn = sessionData.signedIn;
   await session.save();
 }
+
+export const removeSession = async () => {
+  const session = await ironSession();
+  session.destroy();
+}

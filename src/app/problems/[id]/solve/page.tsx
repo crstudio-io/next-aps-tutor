@@ -2,6 +2,11 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { getSession } from "@/lib/session";
 import Editor from "@/app/problems/[id]/solve/editor";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Solve",
+};
 
 const URL = "http://localhost:8080/problems/"
 
@@ -16,6 +21,7 @@ export default async function Solve({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const problem = await getProblem(id);
+  metadata.title = problem.title;
 
   return (
     <main className="row justify-content-center">

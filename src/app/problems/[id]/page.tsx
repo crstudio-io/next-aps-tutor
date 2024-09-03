@@ -19,6 +19,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
   metadata.title = "Problem " + id;
   const problem = await getProblem(id);
   const examples = problem.examples;
+  metadata.title = problem.title;
 
   return (
     <main className="row justify-content-center">

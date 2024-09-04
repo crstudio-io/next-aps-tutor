@@ -2,16 +2,10 @@ import type { Metadata } from "next";
 import { Table } from "react-bootstrap";
 import ProblemTr from "@/components/problems/problem-tr";
 import Pagination from "@/components/pagination";
+import { getProblems } from "@/app/problems/actions";
 
 export const metadata: Metadata = {
   title: "Problems",
-};
-
-const URL = "http://localhost:8080/problems"
-
-const getProblems = async () => {
-  const response = await fetch(URL);
-  return await response.json();
 };
 
 export default async function Problems() {
@@ -38,7 +32,7 @@ export default async function Problems() {
             />)}
           </tbody>
         </Table>
-        <Pagination pageInfo={pageInfo} />
+        <Pagination pageInfo={pageInfo}/>
       </div>
     </main>
   );

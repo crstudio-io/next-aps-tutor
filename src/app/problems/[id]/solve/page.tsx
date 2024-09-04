@@ -3,17 +3,11 @@ import Link from "next/link";
 import { getSession } from "@/lib/session";
 import Editor from "@/app/problems/[id]/solve/editor";
 import type { Metadata } from "next";
+import { getProblem } from "@/app/problems/actions";
 
 export const metadata: Metadata = {
   title: "Solve",
 };
-
-const URL = "http://localhost:8080/problems/"
-
-const getProblem = async (id: number): Promise<{ title: string }> => {
-  const response = await fetch(URL + id);
-  return await response.json();
-}
 
 export default async function Solve({params}: { params: { id: string } }) {
   const session = await getSession();

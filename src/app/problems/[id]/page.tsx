@@ -2,22 +2,18 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ClipboardButton from "@/components/problems/clipboard-btn";
+import { getProblem } from "@/app/problems/actions";
 
 export const metadata: Metadata = {
   title: "Problem",
 };
 
-const URL = "http://localhost:8080/problems/"
-const getProblem = async (id: number) => {
-  const response = await fetch(URL + id);
-  return await response.json();
-}
-
 export default async function ProblemDetail({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
-  metadata.title = "Problem " + id;
   const problem = await getProblem(id);
+  if (!problem) notFound();
+  metadata.title = "Problem " + id;
   const examples = problem.examples;
   metadata.title = problem.title;
 

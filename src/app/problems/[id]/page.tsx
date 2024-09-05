@@ -40,7 +40,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
           <p>{problem.outputDesc}</p>
         </section>
         <section className="mb-3">
-          {examples.map((elem: { id: string, inputExample: string, outputExample: string }, index: number) =>
+          {examples.map((elem, index: number) =>
             <div key={elem.id} className="row mb-2">
               <div className="col-12 col-md-6">
                 <h3 className="fs-4">입력 예시 {index + 1}</h3>

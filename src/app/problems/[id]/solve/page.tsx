@@ -15,6 +15,7 @@ export default async function Solve({params}: { params: { id: string } }) {
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const problem = await getProblem(id);
+  if (!problem) notFound();
   metadata.title = problem.title;
 
   return (

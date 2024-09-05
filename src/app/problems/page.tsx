@@ -32,7 +32,7 @@ export default async function Problems() {
             />)}
           </tbody>
         </Table>
-        <Pagination pageInfo={pageInfo}/>
+        <Pagination page={pageInfo}/>
       </div>
     </main>
   );

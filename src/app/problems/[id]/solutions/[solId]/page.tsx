@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CodeMirrorEditor from "@/components/codemirror/codemirror";
 import Link from "next/link";
 import { Table } from "react-bootstrap";
-import SolutionTr from "@/components/solutions/solution-tr";
+import SolutionTr from "@/app/problems/[id]/solutions/solution-tr";
 
 
 export default function Solution({params}: { params: { id: string, solId: string } }) {

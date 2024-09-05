@@ -9,13 +9,15 @@ export const metadata: Metadata = {
 };
 
 export default async function ProblemDetail({params}: { params: { id: string } }) {
+  metadata.title = `Problem #${params.id}`;
+
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const problem = await getProblem(id);
   if (!problem) notFound();
-  metadata.title = "Problem " + id;
+  metadata.title = `#${problem.id} ${problem.title}`;
+  
   const examples = problem.examples;
-  metadata.title = problem.title;
 
   return (
     <main className="row justify-content-center">

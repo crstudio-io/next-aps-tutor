@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Solution({params}: { params: { id: string, solId: string } }) {
+  metadata.title = `Solution #${params.solId}`
+
   const probId = parseInt(params.id);
   if (isNaN(probId)) notFound();
   const problem = await getProblem(probId);
@@ -21,7 +23,6 @@ export default async function Solution({params}: { params: { id: string, solId: 
   const solution = await getSolution(probId, solId);
   if (!solution) notFound();
 
-  metadata.title = `Solution #${solId}`
 
   return (
     <main className="row justify-content-center">

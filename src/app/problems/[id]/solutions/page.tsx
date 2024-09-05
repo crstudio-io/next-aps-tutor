@@ -17,11 +17,13 @@ export default async function Solutions({params, searchParams,}: {
   params: { id: string },
   searchParams: { [key: string]: string | undefined }
 }) {
+  metadata.title = `Solutions for #${params.id}`;
+
   const probId = parseInt(params.id);
   if (isNaN(probId)) notFound();
   const problem = await getProblem(probId);
   if (!problem) notFound();
-  metadata.title = `#${problem.title} Solutions`;
+
   const me = searchParams?.me === "";
   const pageParam = searchParams?.page ?? null;
   const solutions = await getSolutions(probId, me, pageParam);

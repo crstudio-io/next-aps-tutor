@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 const URL = "http://localhost:8080/problems"
 
 interface Problem {
+  id: number;
   title: string;
   examples: Array<Example>;
   probDesc: string;

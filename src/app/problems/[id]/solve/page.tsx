@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 };
 
 export default async function Solve({params}: { params: { id: string } }) {
+  metadata.title = `Solve #${params.id}`;
   const session = await getSession();
   if (!session.signedIn) redirect("/signin");
   const id = parseInt(params.id);
   if (isNaN(id)) notFound();
   const problem = await getProblem(id);
   if (!problem) notFound();
-  metadata.title = problem.title;
 
   return (
     <main className="row justify-content-center">

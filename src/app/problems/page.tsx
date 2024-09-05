@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Table } from "react-bootstrap";
-import ProblemTr from "@/components/problems/problem-tr";
+import ProblemTr from "@/app/problems/problem-tr";
 import Pagination from "@/components/pagination";
 import { getProblems } from "@/app/problems/actions";
 

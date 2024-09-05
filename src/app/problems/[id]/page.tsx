@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ClipboardButton from "@/components/problems/clipboard-btn";
+import ClipboardButton from "@/app/problems/clipboard-btn";
 import { getProblem } from "@/app/problems/actions";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default async function ProblemDetail({params}: { params: { id: string } }
   const problem = await getProblem(id);
   if (!problem) notFound();
   metadata.title = `#${problem.id} ${problem.title}`;
-  
+
   const examples = problem.examples;
 
   return (

@@ -1,3 +1,4 @@
+"use client";
 import { basicSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { EditorView, ViewUpdate, keymap } from "@codemirror/view";

@@ -1,7 +1,7 @@
 import { getIronSession, SessionOptions } from "iron-session";
 import { cookies } from "next/headers";
 
-const password = "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK";
+const PASSWORD = "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK";
 const cookieName = "sessionid";
 
 export type SessionData = {
@@ -11,7 +11,7 @@ export type SessionData = {
 }
 
 const sessionOptions: SessionOptions = {
-  password,
+  password: PASSWORD,
   cookieName,
 }
 

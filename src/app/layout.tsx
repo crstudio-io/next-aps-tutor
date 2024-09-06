@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/global.scss";
-import Navigation from "@/components/navigation";
+import Navigation from "@/components/navbar/navigation";
 import Container from "react-bootstrap/Container";
 
 export const metadata: Metadata = {

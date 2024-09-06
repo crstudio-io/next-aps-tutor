@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 const password = "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK";
 const cookieName = "sessionid";
 
-type SessionData = {
+export type SessionData = {
   jwt: string,
   username: string,
   signedIn: boolean,

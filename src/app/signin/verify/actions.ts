@@ -5,7 +5,7 @@ const URL = "http://localhost:8080/auth/signin"
 
 export async function verifySignIn(token: string) {
   const response = await fetch(URL + "?token=" + token);
-  if (!response.ok) redirect("/request-signin/error");
+  if (!response.ok) redirect("/signin/error");
   return await response.text();
 }
 

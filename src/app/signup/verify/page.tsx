@@ -1,29 +1,14 @@
-"use client";
+import type { Metadata } from "next";
+import { verifySignUp } from "@/app/signup/verify/actions";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+export const metadata: Metadata = {
+  title: "Sign Up",
+};
 
-const URL = "http://localhost:8080/auth/signup/verify"
-export default function ProcessSignUp({searchParams: {token}}: { searchParams: { token: string } }) {
-  const router = useRouter();
-
-  const [fetching, setFetching] = useState(true);
-
-  useEffect(() => {
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    fetch(URL + "?token=" + token, {
-      method: "POST",
-      headers
-    })
-      .then(response => {
-        if (response.ok) setFetching(false);
-        else router.push("/signup/error");
-      });
-  });
-
+export default async function ProcessSignUp({searchParams}: { searchParams: { [key: string]: string | undefined } }) {
+  await verifySignUp(searchParams.token ?? "");
   return <main>
-    {fetching ? <h1>Please Wait...</h1> : <h1 className="mb-3">Your request is accepted.</h1>}
-    {fetching ? null : <p>Please wait until we check and accept your request.</p>}
+    <h1 className="mb-3">Your request is accepted.</h1>
+    <p>Please wait until we check and accept your request.</p>
   </main>;
 }

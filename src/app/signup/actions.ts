@@ -1,11 +1,11 @@
 "use server"
 
-const URL = "http://localhost:8080/auth/signup/request";
+const HOST = "http://localhost:8080";
 
 export async function signUp(previousState: { done: boolean, failed: boolean }, formData: FormData) {
   const email = formData.get("email");
   const request = formData.get("request");
-  const response = await fetch(URL, {
+  const response = await fetch(`${HOST}/auth/signup/request`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import { updateSession } from "@/lib/session";
 
-const URL = "http://localhost:8080/auth/signin"
+const HOST = "http://localhost:8080";
 
 export async function verifySignIn(token: string) {
-  const response = await fetch(URL + "?token=" + token);
+  const response = await fetch(`${HOST}/auth/signin?token=${token}`)
   if (!response.ok) redirect("/signin/error");
   return await response.text();
 }
@@ -12,7 +12,7 @@ export async function verifySignIn(token: string) {
 export async function setUserInfo(token: string) {
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${token}`);
-  const response = await fetch("http://localhost:8080/auth/user-info", {
+  const response = await fetch(`${HOST}/auth/user-info`, {
     headers
   });
   const json = await response.json();

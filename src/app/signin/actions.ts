@@ -1,10 +1,10 @@
 "use server";
 
-const URL = "http://localhost:8080/auth/signin";
+const HOST = "http://localhost:8080";
 
 export async function signIn(previousState: { done: boolean, failed: boolean }, formData: FormData) {
   const email = formData.get("email");
-  const response = await fetch(URL, {
+  const response = await fetch(`${HOST}/auth/signin`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

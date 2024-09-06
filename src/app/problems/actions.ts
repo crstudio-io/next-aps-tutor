@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 
-const URL = "http://localhost:8080/problems"
+const HOST = "http://localhost:8080"
 
 interface Problem {
   id: number;
@@ -20,13 +20,13 @@ interface Example {
 }
 
 export const getProblems = async () => {
-  const response = await fetch(URL);
+  const response = await fetch(`${HOST}/problems`);
   return await response.json();
 };
 
 
 export const getProblem = async (probId: number): Promise<Problem | null> => {
-  const response = await fetch(`${URL}/${probId}`);
+  const response = await fetch(`${HOST}/problems/${probId}`);
   if (!response.ok) return notFound();
   return await response.json();
 }

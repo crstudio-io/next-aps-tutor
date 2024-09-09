@@ -1,11 +1,6 @@
-import { getSession, removeSession } from "@/lib/session";
+import { removeSession } from "@/lib/session";
 import { NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
-
-export async function GET() {
-  const session = await getSession();
-  return Response.json(session);
-}
 
 export async function DELETE(request: NextRequest) {
   await removeSession();

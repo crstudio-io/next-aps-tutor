@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getProblem } from "@/app/problems/actions";
 import Link from "next/link";
 import { getSolutions } from "@/app/problems/[id]/solutions/actions";
@@ -27,6 +27,7 @@ export default async function Solutions({params, searchParams,}: {
   const me = searchParams?.me === "";
   const pageParam = searchParams?.page ?? null;
   const solutions = await getSolutions(probId, me, pageParam);
+  if (!solutions) return redirect("/signin");
   const {content, page} = solutions;
   return (
     <main className="row justify-content-center">
@@ -34,9 +35,10 @@ export default async function Solutions({params, searchParams,}: {
         <section className="mb-4 row justify-content-between align-items-baseline">
           <h1 className="col-auto">Solutions: {problem.title}</h1>
           <div className="col-auto">
+            {/* TODO using Link + redirect causes infinite loop (doesn't arrive at /api/sessions/refresh) */}
             {me ?
-              <Link href={`/problems/${probId}/solutions`}>다른 풀이 보기</Link> :
-              <Link href={`/problems/${probId}/solutions?me`}>내 풀이 보기</Link>
+              <a href={`/problems/${probId}/solutions`}>다른 풀이 보기</a> :
+              <a href={`/problems/${probId}/solutions?me`}>내 풀이 보기</a>
             }
             <span> </span>
             <Link href={`/problems/${probId}`}>문제보기</Link>

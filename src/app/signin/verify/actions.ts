@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { updateSession } from "@/lib/session";
+import { removeSession, updateSession } from "@/lib/session";
 
 const HOST = "http://localhost:8080";
 
@@ -15,10 +15,15 @@ export async function setUserInfo(token: string) {
   const response = await fetch(`${HOST}/auth/user-info`, {
     headers
   });
-  const json = await response.json();
-  await updateSession({
-    jwt: token,
-    username: json.email,
-    signedIn: true,
-  });
+  if (!response.ok) {
+    await removeSession();
+  } else {
+    const json = await response.json();
+    await updateSession({
+      jwt: token,
+      username: json.email,
+      signedIn: true,
+      updatedAt: Date.now(),
+    });
+  }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { SessionData } from "@/lib/session";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Link from "next/link";

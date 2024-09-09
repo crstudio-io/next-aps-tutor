@@ -1,6 +1,6 @@
 "use server";
 
-import { getSession } from "@/lib/session";
+import { getSession, removeSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -23,5 +23,8 @@ export async function submit(probId: number, lang: string, code: string) {
   if (response.ok) {
     revalidatePath(`/problems/${probId}/solutions`);
     return redirect(`/problems/${probId}/solutions?me`);
-  } else throw new Error("Failed to submit solution");
+  } else {
+    await removeSession();
+    return redirect("/signin");
+  }
 }

@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import SolutionTr from "@/app/problems/[id]/solutions/solution-tr";
 import { getProblem } from "@/app/problems/actions";
 import { getSolution } from "@/app/problems/[id]/solutions/actions";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,8 +21,7 @@ export default async function Solution({params}: { params: { id: string, solId: 
   const solId = parseInt(params.solId);
   if (isNaN(solId)) notFound();
   const solution = await getSolution(probId, solId);
-  if (!solution) notFound();
-
+  if (!solution) return redirect("/signin");
 
   return (
     <main className="row justify-content-center">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ClipboardButton from "@/app/problems/clipboard-btn";
 import { getProblem } from "@/app/problems/actions";
+import markdownToHtml from "@/lib/remark";
 
 export const metadata: Metadata = {
   title: "Problem",
@@ -15,6 +16,8 @@ export default async function ProblemDetail({params}: { params: { id: string } }
   if (isNaN(id)) notFound();
   const problem = await getProblem(id);
   if (!problem) notFound();
+  const probDesc = await markdownToHtml(problem.probDesc);
+
   metadata.title = `#${problem.id} ${problem.title}`;
 
   const examples = problem.examples;
@@ -30,8 +33,10 @@ export default async function ProblemDetail({params}: { params: { id: string } }
             <Link href={`/problems/${id}/solve`}>제출하기</Link>
           </div>
         </section>
-        <section className="mb-3">
-          <p>{problem.probDesc}</p>
+        <section
+          className="mb-3"
+          dangerouslySetInnerHTML={{__html: probDesc}}
+        >
         </section>
         <section className="mb-3">
           <h2 className="fs-3">입력</h2>

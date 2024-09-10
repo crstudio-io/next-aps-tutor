@@ -3,7 +3,7 @@
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const HOST = "http://localhost:8080";
+const HOST = process.env.HOST ?? "http://localhost:8080";
 
 export async function getSolutions(probId: number, me: boolean, page: string | null) {
   const session = await getSession();

@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 
-const HOST = "http://localhost:8080"
+const HOST = process.env.HOST ?? "http://localhost:8080"
 
 interface Problem {
   id: number;

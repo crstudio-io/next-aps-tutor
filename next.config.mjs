@@ -6,6 +6,9 @@ const nextConfig = {
       static: 180,
     },
   },
+  // env: {
+  //   HOST: "http://localhost:8080",
+  // },
 };
 
 export default nextConfig;

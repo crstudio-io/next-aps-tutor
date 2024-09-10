@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { removeSession, updateSession } from "@/lib/session";
 
-const HOST = "http://localhost:8080";
+const HOST = process.env.HOST ?? "http://localhost:8080";
 
 export async function verifySignIn(token: string) {
   const response = await fetch(`${HOST}/auth/signin?token=${token}`)

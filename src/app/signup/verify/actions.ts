@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-const HOST = "http://localhost:8080";
+const HOST = process.env.HOST ?? "http://localhost:8080";
 
 export async function verifySignUp(token: string) {
   const headers = new Headers();

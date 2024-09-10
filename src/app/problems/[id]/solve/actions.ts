@@ -4,7 +4,7 @@ import { getSession, removeSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-const HOST = "http://localhost:8080";
+const HOST = process.env.HOST ?? "http://localhost:8080";
 
 export async function submit(probId: number, lang: string, code: string) {
   const session = await getSession();

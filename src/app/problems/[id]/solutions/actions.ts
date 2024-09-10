@@ -1,6 +1,6 @@
 "use server";
 
-import { getSession, removeSession } from "@/lib/session";
+import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 const HOST = "http://localhost:8080";
@@ -17,7 +17,6 @@ export async function getSolutions(probId: number, me: boolean, page: string | n
   });
   if (response.ok) return await response.json();
   else {
-    await removeSession();
     return null;
   }
 }
@@ -35,7 +34,6 @@ export async function getSolution(probId: number, solId: number) {
   });
   if (response.ok) return await response.json();
   else {
-    await removeSession();
     return null;
   }
 }

@@ -34,6 +34,7 @@ export default function CodeMirrorEditor({readOnly = false, onChanged, lang, val
 
   const updateListener = (view: ViewUpdate) => {
     if (view.docChanged) {
+      // @ts-expect-error("text is not defined?")
       if (onChanged) onChanged(view.state.doc.text.join("\n"));
     }
   }
@@ -49,11 +50,14 @@ export default function CodeMirrorEditor({readOnly = false, onChanged, lang, val
         overflow: "auto",
       },
     });
+
     const state = EditorState.create({
+      // @ts-expect-error("null vs undefined")
       doc: value,
       // doc: "public class Main {\n    public static void main(String[] args){}\n}",
       extensions: [
         basicSetup,
+        // @ts-expect-error("null vs undefined")
         language.of(setLang(lang)),
         keymap.of(defaultKeymap),
         keymap.of([indentWithTab]),

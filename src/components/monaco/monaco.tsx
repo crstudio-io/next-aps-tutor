@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import * as monaco from "monaco-editor";
 
 
-export default function MonacoEditor({ setValue }: { setValue: (value: any) => void }) {
-  if (typeof window === "undefined") return null;
+export default function MonacoEditor({setValue}: { setValue: (value: string) => void }) {
   const divElement = useRef<HTMLDivElement>(null)
   let editor: monaco.editor.IStandaloneCodeEditor;
   useEffect(() => {
@@ -19,18 +18,18 @@ export default function MonacoEditor({ setValue }: { setValue: (value: any) => v
         language: 'java'
 
       });
-      editor.getModel()?.onDidChangeContent((event) => {
-        setValue(editor.getModel()?.getValue());
+      editor.getModel()?.onDidChangeContent(() => {
+        setValue(editor.getModel()?.getValue() ?? "");
       });
     }
     return () => {
       editor.dispose();
     };
-  }, [])
-
+  }, []);
+  if (typeof window === "undefined") return null;
 
   return <div style={{
     width: "80%",
     height: "80%",
-  }} ref={divElement} />
+  }} ref={divElement}/>
 }

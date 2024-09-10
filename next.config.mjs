@@ -6,6 +6,7 @@ const nextConfig = {
       static: 180,
     },
   },
+  output: "standalone",
   // env: {
   //   HOST: "http://localhost:8080",
   // },

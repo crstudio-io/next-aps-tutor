@@ -1,6 +1,6 @@
 "use server";
 
-const HOST = "http://localhost:8080";
+const HOST = process.env.HOST ?? "http://localhost:8080";
 
 export async function signIn(previousState: { done: boolean, failed: boolean }, formData: FormData) {
   const email = formData.get("email");

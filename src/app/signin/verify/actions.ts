@@ -9,9 +9,9 @@ export async function verifySignIn(token: string) {
   return await response.text();
 }
 
-export async function setUserInfo(token: string) {
+export async function setUserInfo(jwt: string) {
   const headers = new Headers();
-  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Authorization", `Bearer ${jwt}`);
   const response = await fetch(`${HOST}/auth/user-info`, {
     headers
   });
@@ -20,7 +20,7 @@ export async function setUserInfo(token: string) {
   } else {
     const json = await response.json();
     await updateSession({
-      jwt: token,
+      jwt: jwt,
       username: json.email,
       signedIn: true,
       updatedAt: Date.now(),

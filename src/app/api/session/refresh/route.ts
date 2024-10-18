@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const next = searchParams.get("next") ?? "/";
   const session = await ironSession();
+  if (!session.jwt) return redirect("/signin");
   await setUserInfo(session.jwt);
   return redirect(next);
 }

@@ -1,8 +1,8 @@
 "use server";
 
-import { getSession, removeSession } from "@/lib/session";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import {getSession} from "@/lib/session";
+import {redirect} from "next/navigation";
+import {revalidatePath} from "next/cache";
 
 const HOST = process.env.HOST ?? "http://localhost:8080";
 
@@ -23,8 +23,10 @@ export async function submit(probId: number, lang: string, code: string) {
   if (response.ok) {
     revalidatePath(`/problems/${probId}/solutions`);
     return redirect(`/problems/${probId}/solutions?me`);
-  } else {
-    await removeSession();
-    return redirect("/signin");
+  }
+  else if (response.status === 403) return redirect(`/api/session/refresh`);
+  else {
+    console.error(response.status);
+    throw Error(`failed with status: ${response.status}`);
   }
 }

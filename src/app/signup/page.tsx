@@ -15,9 +15,7 @@ export default async function SignUpPage() {
       <h1 className="mb-3">Sign Up</h1>
       <p>
         CRStudio.io is a toy project by <a href="https://github.com/aquashdw">aquashdw</a>.
-        It is not intended to be a real service, therefore currently not excepting new users.
-        However, if you want to try out the site&apos;s functionalities for a specific reason,
-        please fill out why below, and we&apos;ll reach out soon.
+        It is not intended to be an open service, and cannot sign up as is.
       </p>
       <SignUpForm/>
     </div>

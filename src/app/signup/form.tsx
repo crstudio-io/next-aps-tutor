@@ -13,7 +13,14 @@ export default function SignUpForm() {
       <input id="email-input" type="email" name="email" className="form-control"/>
     </div>
     <div className="mb-3">
+      <label htmlFor="code-input" className="form-label">Sign Up Code: </label>
+      <p className="form-text">If you received a code that allows you to sign up, please enter below.</p>
+      <input id="code-input" type="text" name="code" className="form-control"/>
+    </div>
+    <div className="mb-3">
       <label htmlFor="request-input" className="form-label">Why do you want to sign up?</label>
+      <p className="form-text">If you want to try out the site, please fill out below, and we&apos;ll reach out
+        soon.</p>
       <input id="request-input" name="request" className="form-control"/>
     </div>
     <Button failed={failed} done={done}/>

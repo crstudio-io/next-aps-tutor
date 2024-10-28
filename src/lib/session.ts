@@ -2,7 +2,7 @@ import { getIronSession, SessionOptions } from "iron-session";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-const PASSWORD = "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK";
+const PASSWORD = process.env.SECRET ?? "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK";
 const cookieName = "sessionid";
 
 export type SessionData = {

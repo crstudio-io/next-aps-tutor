@@ -9,6 +9,7 @@ const nextConfig = {
   output: "standalone",
   // env: {
   //   HOST: "http://localhost:8080",
+  //   SECRET: "!t%9v2V-rTfAKt7:~vKmuiA~MxB4uNjK",
   // },
 };
 
